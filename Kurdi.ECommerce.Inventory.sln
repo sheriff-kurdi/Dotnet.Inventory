@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kurdi.Inventory.Services", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kurdi.Inventory.UseCases", "src\Kurdi.Inventory.UseCases\Kurdi.Inventory.UseCases.csproj", "{48E56781-FAD9-4D4C-8E6C-1CA9DFC88504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kurdi.SharedKernel", "..\Kurdi.SharedKernel\src\Kurdi.SharedKernel\Kurdi.SharedKernel.csproj", "{1F4C37C8-92DD-4778-A6C9-B937F9F7EADE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,10 +63,6 @@ Global
 		{48E56781-FAD9-4D4C-8E6C-1CA9DFC88504}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48E56781-FAD9-4D4C-8E6C-1CA9DFC88504}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48E56781-FAD9-4D4C-8E6C-1CA9DFC88504}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F4C37C8-92DD-4778-A6C9-B937F9F7EADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F4C37C8-92DD-4778-A6C9-B937F9F7EADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F4C37C8-92DD-4778-A6C9-B937F9F7EADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F4C37C8-92DD-4778-A6C9-B937F9F7EADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
