@@ -1,26 +1,36 @@
-﻿using Kurdi.Inventory.Core.Contracts.Repositories;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Kurdi.Inventory.Core.Contracts.Repositories;
 using Kurdi.Inventory.Core.Entities.CategoryAggregate;
 using Kurdi.Inventory.Core.Entities.ProductAggregate;
-using Kurdi.Inventory.UseCases.ProductsManagement.Products;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 
-namespace Kurdi.Inventory.UseCases;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
 
 public class UpdateProductHandler : ICommandHandler<UpdateProductCommand, Result>
 {
 
     private readonly IProductsRepo _productsRepo;
     private readonly ICategoriesRepo _categoriesRepo;
+    private readonly IValidator<UpdateProductRequest> _validator;
 
-    public UpdateProductHandler(IProductsRepo productsRepo, ICategoriesRepo categoriesRepo)
+    public UpdateProductHandler(IProductsRepo productsRepo, ICategoriesRepo categoriesRepo, IValidator<UpdateProductRequest> validator)
     {
         _productsRepo = productsRepo;
         _categoriesRepo = categoriesRepo;
+        _validator = validator;
     }
 
     public async Task<Result> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
+
+        ValidationResult validationResult = await _validator.ValidateAsync(request.updateProductRequest);
+        if (!validationResult.IsValid)
+        {
+            return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
+        }
+        
         if (request.sku != request.updateProductRequest.SKU) return Result.Error(["sku not the same"]);
 
         //TODO: handle response from here status code and type

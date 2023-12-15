@@ -6,7 +6,7 @@ public class UpdateCategoryRequest
 {
 
     public string Name { get; set; } = string.Empty;
-    public bool IsParent { get; set; }
+    public bool HasParent { get; set; }
     public string ParentName { get; set; } = string.Empty;
     public List<CategoryDetails> CategoryDetails { get; set; } = new List<CategoryDetails>();
     public bool Activation { get; set; }
@@ -14,7 +14,7 @@ public class UpdateCategoryRequest
        public Category ToCategory(){
         return new Category(){
             Name = Name,
-            IsParent = IsParent,
+            HasParent = HasParent,
             ParentName = ParentName,
             CategoryDetails = CategoryDetails,
             Activation = Activation

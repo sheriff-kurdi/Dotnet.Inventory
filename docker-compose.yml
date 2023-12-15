@@ -1,0 +1,34 @@
+version: '3'
+services:
+
+  postgres_db:
+    image: mdillon/postgis
+    restart: always
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+    networks:
+      dotnet_inventory:
+        ipv4_address: 11.5.0.1
+
+  adminer:
+    # replace with your created docker image name 
+    image: dotnet_inventory_v1
+    restart: always
+    container_name: dotnet_inventory_v1
+    ports:
+      - 5196:5196
+    networks:
+      dotnet_inventory:
+        ipv4_address: 11.5.0.2
+
+networks:
+  dotnet_inventory:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 11.5.0.0/16
+          gateway: 11.5.0.1
