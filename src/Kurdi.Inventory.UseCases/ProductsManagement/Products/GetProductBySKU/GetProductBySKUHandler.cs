@@ -3,7 +3,7 @@ using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kurdi.Inventory.UseCases;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
 
 public class GetProductBySKUHandler : IQueryHandler<GetProductBySKUQuery, Result<GetProductBySKUResponse>>
 {

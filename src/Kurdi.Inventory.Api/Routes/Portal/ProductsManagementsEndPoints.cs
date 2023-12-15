@@ -1,16 +1,9 @@
 
-using Kurdi.Inventory.Api.Requests.Stock;
-using Kurdi.Inventory.Api.Responses.Categories;
-using Kurdi.Inventory.Core.Contracts.Repositories;
-using Kurdi.Inventory.Core.Entities.CategoryAggregate;
-using Kurdi.Inventory.Core.Entities.ProductAggregate;
-using Kurdi.Inventory.UseCases;
+
 using Kurdi.Inventory.UseCases.ProductsManagement.Categories;
 using Kurdi.Inventory.UseCases.ProductsManagement.Products;
-using Kurdi.SharedKernel.Result;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 namespace Kurdi.Inventory.Api.Routes.Portal
 {
     public static class ProductsManagementsEndPoints
@@ -26,6 +19,7 @@ namespace Kurdi.Inventory.Api.Routes.Portal
             productsGroup.MapGet("/", async ([AsParameters] ListProductsRequest request, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new ListProductsQuery(request));
+                if (!result.IsSuccess) return Results.BadRequest(result);
                 return Results.Ok(result);
 
             });
@@ -47,12 +41,14 @@ namespace Kurdi.Inventory.Api.Routes.Portal
             productsGroup.MapPost("/", async ([FromBody] CreateProductRequest request, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new CreateProductCommand(request));
+                if (!result.IsSuccess) return Results.BadRequest(result);
                 return Results.Created();
             });
 
             productsGroup.MapDelete("/{sku}", async (string sku, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new DeleteProductCommand(sku));
+                if (!result.IsSuccess) return Results.BadRequest(result);
                 return Results.NoContent();
             });
             #endregion
@@ -63,6 +59,8 @@ namespace Kurdi.Inventory.Api.Routes.Portal
             categoriesGroup.MapGet("/", async ([AsParameters] ListCategoriesRequest request, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new ListCategoriesQuery(request));
+                if (!result.IsSuccess) return Results.BadRequest(result);
+
                 return Results.Ok(result);
             });
 
@@ -83,12 +81,14 @@ namespace Kurdi.Inventory.Api.Routes.Portal
             categoriesGroup.MapPost("/", async ([FromBody] CreateCategoryRequest request, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new CreateCategoryCommand(request));
+                if (!result.IsSuccess) return Results.BadRequest(result);
                 return Results.Created();
             });
 
             categoriesGroup.MapDelete("/{name}", async (string name, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new DeleteCategoryCommand(name));
+                if (!result.IsSuccess) return Results.BadRequest(result);
                 return Results.NoContent();
             });
             #endregion

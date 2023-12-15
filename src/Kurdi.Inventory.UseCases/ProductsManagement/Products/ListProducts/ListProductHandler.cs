@@ -1,21 +1,31 @@
-﻿using Kurdi.Inventory.Core.Contracts.Repositories;
-using Kurdi.Inventory.Core.Entities.ProductAggregate;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Kurdi.Inventory.Core.Contracts.Repositories;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kurdi.Inventory.UseCases;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
 
 public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnumerable<ListProductsItemResponse>>>
 {
     private readonly IProductsRepo _productsRepo;
+    private readonly IValidator<ListProductsRequest> _validator;
 
-    public ListProductHandler(IProductsRepo productsRepo)
+    public ListProductHandler(IProductsRepo productsRepo, IValidator<ListProductsRequest> validator)
     {
         _productsRepo = productsRepo;
+        _validator = validator;
     }
     public async Task<Result<IEnumerable<ListProductsItemResponse>>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
     {
+
+        ValidationResult validationResult = await _validator.ValidateAsync(request.listProductsRequest);
+        if (!validationResult.IsValid)
+        {
+            return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
+        }
+        
 
         var products = _productsRepo.FindAll();
 

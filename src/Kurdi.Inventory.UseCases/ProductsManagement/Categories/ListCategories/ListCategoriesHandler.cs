@@ -1,6 +1,7 @@
-﻿using Kurdi.Inventory.Core.Contracts.Repositories;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Kurdi.Inventory.Core.Contracts.Repositories;
 using Kurdi.Inventory.Core.Entities.CategoryAggregate;
-using Kurdi.Inventory.Core.Entities.ProductAggregate;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +11,20 @@ namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
 public class ListCategoriesHandler : IQueryHandler<ListCategoriesQuery, Result<IEnumerable<ListCategoriesItemResponse>>>
 {
     private readonly ICategoriesRepo _categoriesRepo;
+    private readonly IValidator<ListCategoriesRequest> _validator;
 
-    public ListCategoriesHandler(ICategoriesRepo categoriesRepo)
+    public ListCategoriesHandler(ICategoriesRepo categoriesRepo, IValidator<ListCategoriesRequest> validator)
     {
         _categoriesRepo = categoriesRepo;
+        _validator = validator;
     }
     public async Task<Result<IEnumerable<ListCategoriesItemResponse>>> Handle(ListCategoriesQuery request, CancellationToken cancellationToken)
     {
+        ValidationResult validationResult = await _validator.ValidateAsync(request.listCategoriesRequest);
+        if (!validationResult.IsValid)
+        {
+            return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
+        }
 
         IQueryable<Category> categories = _categoriesRepo.FindAll();
 
@@ -51,7 +59,7 @@ public class ListCategoriesHandler : IQueryHandler<ListCategoriesQuery, Result<I
             .Select(category => new ListCategoriesItemResponse()
             {
                 Name = category.Name,
-                IsParent = category.IsParent,
+                HasParent = category.HasParent,
                 ParentName = category.ParentName,
                 CategoryDetails = category.CategoryDetails,
                 Activation = category.Activation

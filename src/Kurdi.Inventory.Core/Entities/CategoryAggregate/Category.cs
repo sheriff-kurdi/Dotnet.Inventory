@@ -11,7 +11,7 @@ public class Category: IAggregateRoot
     [Column(name: "name")]
     public string Name { get; set; } = string.Empty;
     [Column(name: "is_parent")]
-    public bool IsParent { get; set; }
+    public bool HasParent { get; set; }
     [Column(name: "parent")]
     public string ParentName { get; set; } = string.Empty;
     [ForeignKey(name: "ParentName")]

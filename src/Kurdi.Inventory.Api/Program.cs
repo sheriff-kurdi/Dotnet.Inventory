@@ -1,4 +1,5 @@
 
+using FluentValidation;
 using Kurdi.Inventory.Api.Configuration;
 using Kurdi.Inventory.Api.Helpers;
 using Kurdi.Inventory.Api.Middleware;
@@ -8,6 +9,7 @@ using Kurdi.Inventory.Core.Contracts.Repositories;
 using Kurdi.Inventory.Infrastructure.Data;
 using Kurdi.Inventory.Infrastructure.DataAccess;
 using Kurdi.Inventory.Services;
+using Kurdi.Inventory.UseCases;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,9 @@ builder.Services.AddScoped<IReceivingService, ReceivingService>();
 builder.Services.AddScoped<ISalesOrderProductsRepo, SalesOrderProductsRepo>();
 builder.Services.AddScoped<ProductsService>();
 builder.Services.AddScoped<SalesOrdersService>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<UseCaseRoot>();
+
 
 builder.Services.AddLocalization();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(MediatorConfig.GetAssemblies().ToArray()));
