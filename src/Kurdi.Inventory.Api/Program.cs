@@ -1,11 +1,12 @@
 
 using FluentValidation;
-using Kurdi.Inventory.Api.Configuration;
+using Kurdi.Inventory.Api.Configurations;
 using Kurdi.Inventory.Api.Helpers;
 using Kurdi.Inventory.Api.Middleware;
 using Kurdi.Inventory.Api.Routes.Portal;
 using Kurdi.Inventory.Core;
 using Kurdi.Inventory.Core.Contracts.Repositories;
+using Kurdi.Inventory.Infrastructure.Configurations.Settings;
 using Kurdi.Inventory.Infrastructure.Data;
 using Kurdi.Inventory.Infrastructure.DataAccess;
 using Kurdi.Inventory.Services;
@@ -30,6 +31,10 @@ builder.Services.AddScoped<SalesOrdersService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<UseCaseRoot>();
 
+builder.Services.AddOptions<DatabaseSettings>()
+    .BindConfiguration(DatabaseSettings.DatabaseSection)
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
 builder.Services.AddLocalization();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(MediatorConfig.GetAssemblies().ToArray()));

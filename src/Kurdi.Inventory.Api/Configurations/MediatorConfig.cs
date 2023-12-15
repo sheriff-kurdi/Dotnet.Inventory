@@ -3,7 +3,7 @@ using System.Reflection;
 using Kurdi.Inventory.Core;
 using Kurdi.Inventory.UseCases;
 
-namespace Kurdi.Inventory.Api.Configuration;
+namespace Kurdi.Inventory.Api.Configurations;
 
 public class MediatorConfig
 {

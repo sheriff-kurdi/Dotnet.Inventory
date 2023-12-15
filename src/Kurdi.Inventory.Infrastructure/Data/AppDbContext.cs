@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 using System.Threading;
 using Kurdi.SharedKernel;
 using System.Linq;
+using Kurdi.Inventory.Infrastructure.Configurations.Settings;
+using Microsoft.Extensions.Options;
 
 namespace Kurdi.Inventory.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+        private readonly IOptions<DatabaseSettings> _configuration;
         // private readonly IDomainEventDispatcher _dispatcher;
 
         // public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration, IDomainEventDispatcher dispatcher) : base(options)
-        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IOptions<DatabaseSettings> configuration) : base(options)
         {
             _configuration = configuration;
             // _dispatcher = dispatcher;
@@ -26,7 +28,9 @@ namespace Kurdi.Inventory.Infrastructure.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to postgres with connection string from app settings
-            options.UseSqlServer(_configuration.GetConnectionString("sqlServerDatabase"));
+             DatabaseSettings databaseSettings = _configuration.Value;
+
+            options.UseSqlServer(databaseSettings.SqlServerConnectionString);
 
             //options.UseNpgsql(_configuration.GetConnectionString("postgresDatabase"));
 
