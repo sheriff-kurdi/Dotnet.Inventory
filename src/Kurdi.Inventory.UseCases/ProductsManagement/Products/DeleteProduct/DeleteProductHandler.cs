@@ -1,11 +1,9 @@
 ﻿using Kurdi.Inventory.Core.Contracts.Repositories;
 using Kurdi.Inventory.Core.Entities.ProductAggregate;
-using Kurdi.Inventory.UseCases.ProductsManagement.Products;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
-using MediatR;
 
-namespace Kurdi.Inventory.UseCases;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
 
 public class DeleteProductHandler : ICommandHandler<DeleteProductCommand, Result<string>>
 {

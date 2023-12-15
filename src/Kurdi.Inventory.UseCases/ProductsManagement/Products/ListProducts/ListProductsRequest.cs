@@ -1,4 +1,4 @@
-﻿namespace Kurdi.Inventory.UseCases;
+﻿namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
 
 public class ListProductsRequest : PaginatedRequest
 {

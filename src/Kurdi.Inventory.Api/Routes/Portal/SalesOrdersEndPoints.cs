@@ -34,7 +34,7 @@ namespace Kurdi.Inventory.Api.Routes.Portal
                     Name = c.Name,
                     TranslatedName = c.CategoryDetails.FirstOrDefault(d => d.LanguageCode == "ar")!.TranslatedName,
                     Description = c.CategoryDetails.FirstOrDefault(d => d.LanguageCode == "ar")!.Description,
-                    IsParent = c.IsParent,
+                    IsParent = c.HasParent,
                     Parent = c.ParentName
                 });
 

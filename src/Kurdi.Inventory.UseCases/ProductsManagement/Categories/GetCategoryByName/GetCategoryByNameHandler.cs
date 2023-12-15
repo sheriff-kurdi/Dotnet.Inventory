@@ -1,5 +1,4 @@
 ﻿using Kurdi.Inventory.Core.Contracts.Repositories;
-using Kurdi.Inventory.Core.Entities.CategoryAggregate;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,7 @@ public class GetCategoryByNameHandler : IQueryHandler<GetCategoryByNameQuery, Re
         .Include(category => category.CategoryDetails).Select(category => new GetCategoryByNameResponse()
         {
             Name = category.Name,
-            IsParent = category.IsParent,
+            HasParent = category.HasParent,
             ParentName = category.ParentName,
             CategoryDetails = category.CategoryDetails,
             Activation = category.Activation
