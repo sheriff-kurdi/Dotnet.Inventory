@@ -20,6 +20,7 @@ builder.Services.AddRepositories();
 builder.Services.AddMediator();
 builder.Services.AddDomainServices();
 builder.Services.AddSettings();
+builder.Services.AddCustomExceptionsHandling();
 #endregion
 
 
@@ -36,6 +37,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors(cors => { cors.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+app.UseExceptionHandler(opt => { });
 app.UseLanguageMiddleware();
 
 #region endpoints
