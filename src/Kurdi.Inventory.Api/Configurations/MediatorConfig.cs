@@ -5,11 +5,17 @@ using Kurdi.Inventory.UseCases;
 
 namespace Kurdi.Inventory.Api.Configurations;
 
-public class MediatorConfig
+public static class MediatorConfig
 {
-    public static IEnumerable<Assembly> GetAssemblies()
+    private static IEnumerable<Assembly> GetAssemblies()
     {
         yield return typeof(UseCaseRoot).GetTypeInfo().Assembly;
         yield return typeof(CoreRoot).GetTypeInfo().Assembly;
+    }
+
+    public static IServiceCollection AddMediator(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(GetAssemblies().ToArray()));
+        return services;
     }
 }
