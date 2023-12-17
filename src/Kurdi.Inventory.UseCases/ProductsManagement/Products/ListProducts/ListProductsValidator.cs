@@ -6,9 +6,9 @@ public class ListProductsValidator : AbstractValidator<ListProductsRequest>
 {
     public ListProductsValidator()
     {
-        RuleFor(x => x.Sku).NotEmpty();
-        RuleFor(x => x.Category).NotEmpty();
-        RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.Query).NotEmpty();
+        //RuleFor(x => x.Sku).NotEmpty();
+        //RuleFor(x => x.Category).NotEmpty();
+        //RuleFor(x => x.Name).NotEmpty();
+        //RuleFor(x => x.Query).NotEmpty();
     }
 }

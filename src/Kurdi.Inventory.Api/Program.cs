@@ -51,3 +51,6 @@ app.MapGet("/", () =>
     return Translator.Translate("VALIDATION:NOT_VALID_LANGUAGE");
 });
 app.Run();
+
+// for exposing to Integration test
+public partial class Program { }
