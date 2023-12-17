@@ -20,5 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Kurdi.Inventory.Core\Kurdi.Inventory.Core.csproj" />
+  </ItemGroup>
+
 
 </Project>
