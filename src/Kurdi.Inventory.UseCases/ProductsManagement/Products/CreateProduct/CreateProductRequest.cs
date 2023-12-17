@@ -14,7 +14,7 @@ public class CreateProductRequest
     {
         return new Product()
         {
-            SKU = SKU,
+            Sku = SKU,
             ProductPrices = ProductPrices,
             CategoryName = CategoryName,
             Activation = Activation

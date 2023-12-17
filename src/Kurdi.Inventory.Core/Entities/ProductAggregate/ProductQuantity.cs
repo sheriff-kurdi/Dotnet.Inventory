@@ -7,13 +7,10 @@ namespace Kurdi.Inventory.Core.Entities.ProductAggregate
     [Owned]
     public class ProductQuantity
     {
-        [Column(name:"total_stock")]
         public int TotalStock { get; private set; }
 
-        [Column(name:"available_stock")]
         public int AvailableStock { get; private set; }
 
-        [Column(name:"reserved_stock")]
         public int ReservedStock { get; private set; }
 
         public void AddStock(int quantity)

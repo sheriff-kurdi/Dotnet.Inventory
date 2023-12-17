@@ -15,7 +15,7 @@ namespace Kurdi.Inventory.Services
 
         public void Reserve(string sku, int quantity)
         {
-            Product product = _productsRepo.Find(s => s.SKU == sku).FirstOrDefault();
+            Product product = _productsRepo.Find(s => s.Sku == sku).FirstOrDefault();
             product.ProductQuantity.ReserveStock(quantity);
             this._productsRepo.Update(product);
             this._productsRepo.SaveChangesAsync();
@@ -23,7 +23,7 @@ namespace Kurdi.Inventory.Services
 
         public void CancelReservation(string sku, int quantity)
         {
-            Product product = _productsRepo.Find(s => s.SKU == sku).FirstOrDefault();
+            Product product = _productsRepo.Find(s => s.Sku == sku).FirstOrDefault();
             product.ProductQuantity.CancelReservation(quantity);
             this._productsRepo.Update(product);
             this._productsRepo.SaveChangesAsync();
@@ -31,7 +31,7 @@ namespace Kurdi.Inventory.Services
 
         public void AddStock(string sku, int quantity, double addedItemsCost)
         {
-            Product product = _productsRepo.Find(s => s.SKU == sku).FirstOrDefault();
+            Product product = _productsRepo.Find(s => s.Sku == sku).FirstOrDefault();
 
             //update quantities
             product.ProductQuantity.AddStock(quantity);
@@ -59,7 +59,7 @@ namespace Kurdi.Inventory.Services
 
         public void Delete(string sku)
         {
-            Product product = this._productsRepo.Find(stock => stock.SKU == sku).FirstOrDefault();
+            Product product = this._productsRepo.Find(stock => stock.Sku == sku).FirstOrDefault();
             _productsRepo.Delete(product);
             _productsRepo.SaveChangesAsync();
         }

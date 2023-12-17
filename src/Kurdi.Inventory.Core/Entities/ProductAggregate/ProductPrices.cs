@@ -7,7 +7,6 @@ namespace Kurdi.Inventory.Core.Entities.ProductAggregate
     public class ProductPrices
     {
         private double _sellingPrice;
-        [Column(name: "selling_price")]
         public double SellingPrice
         {
             get
@@ -20,15 +19,10 @@ namespace Kurdi.Inventory.Core.Entities.ProductAggregate
             }
         }
 
-        [Column(name:"cost_price")]
         public double CostPrice { get; set; }
 
-        [Column(name:"discount")]
-        // ReSharper disable once MemberCanBePrivate.Global
         public double Discount { get; set; }
 
-        [Column(name:"is_discounted")]
-        // ReSharper disable once MemberCanBePrivate.Global
         public bool IsDiscounted { get; set; }
     }
 }

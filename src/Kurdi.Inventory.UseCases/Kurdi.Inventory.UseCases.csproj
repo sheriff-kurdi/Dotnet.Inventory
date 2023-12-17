@@ -8,8 +8,7 @@
 
   <ItemGroup>
       <PackageReference Include="FluentValidation" Version="11.8.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-    <ProjectReference Include="..\..\..\Kurdi.SharedKernel\src\Kurdi.SharedKernel\Kurdi.SharedKernel.csproj" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <ProjectReference Include="..\Kurdi.Inventory.Core\Kurdi.Inventory.Core.csproj" />
   </ItemGroup>
 

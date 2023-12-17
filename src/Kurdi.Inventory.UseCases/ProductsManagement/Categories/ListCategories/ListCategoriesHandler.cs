@@ -42,7 +42,7 @@ public class ListCategoriesHandler : IQueryHandler<ListCategoriesQuery, Result<I
 
             categories = categories.Where(category =>
                 category.Name == request.listCategoriesRequest.Query
-                || category.CategoryDetails.Any(categoryDetails => categoryDetails.Name.Contains(request.listCategoriesRequest.Query))
+                || category.CategoryDetails.Any(categoryDetails => categoryDetails.CategoryName.Contains(request.listCategoriesRequest.Query))
             );
         }
 

@@ -9,9 +9,7 @@ namespace Kurdi.Inventory.Core.Entities.SalesOrderAggregate
     [Table(name: "sales_order_status")]
     public class SalesOrderStatus
     {
-        [Column(name: "id")]
         public int Id { get; set; }
-        [Column(name: "name")]
         public string Name { get; set; }
     }
 }

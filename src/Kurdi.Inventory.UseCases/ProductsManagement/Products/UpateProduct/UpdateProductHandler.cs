@@ -37,7 +37,7 @@ public class UpdateProductHandler : ICommandHandler<UpdateProductCommand, Result
         //TODO:handle timestamps
 
         //check if product exist
-        Product? product = _productsRepo.Find(stock => stock.SKU == request.updateProductRequest.SKU).FirstOrDefault();
+        Product? product = _productsRepo.Find(stock => stock.Sku == request.updateProductRequest.SKU).FirstOrDefault();
         if (product is null) return Result.NotFound();
 
         //don't update product quantity

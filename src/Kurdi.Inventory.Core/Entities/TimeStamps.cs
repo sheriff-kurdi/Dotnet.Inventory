@@ -9,11 +9,8 @@ namespace Kurdi.Inventory.Core.Entities
     [Owned]
     public class TimeStamps
     {
-        [Column(name: "created_at")]
         public DateTime CreatedAt { get; set; }
-        [Column(name: "updated_at")]
-        public DateTime UpdatedAt { get; set; }
-        [Column(name: "deleted_at")]
-        public DateTime DeletedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

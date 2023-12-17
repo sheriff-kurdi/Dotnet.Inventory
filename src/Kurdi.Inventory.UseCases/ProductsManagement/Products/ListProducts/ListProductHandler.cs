@@ -36,7 +36,7 @@ public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnume
 
         if (!string.IsNullOrEmpty(request.listProductsRequest.Sku))
         {
-            products = products.Where(p => p.SKU == request.listProductsRequest.Sku);
+            products = products.Where(p => p.Sku == request.listProductsRequest.Sku);
         }
         if (!string.IsNullOrEmpty(request.listProductsRequest.Category))
         {
@@ -50,7 +50,7 @@ public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnume
         {
 
             products = products.Where(p =>
-                 p.SKU == request.listProductsRequest.Query
+                 p.Sku == request.listProductsRequest.Query
                 || p.ProductDetails.Any(pd => pd.Name.Contains(request.listProductsRequest.Query)));
         }
 
@@ -65,7 +65,7 @@ public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnume
             .Skip((request.listProductsRequest.PageNumber - 1) * request.listProductsRequest.PageSize)
             .Take(request.listProductsRequest.PageSize)
             .Select(product => new ListProductsItemResponse(){
-                SKU = product.SKU,
+                Sku = product.Sku,
                 ProductPrices = product.ProductPrices,
                 ProductDetails = product.ProductDetails,
                 ProductQuantity = product.ProductQuantity,

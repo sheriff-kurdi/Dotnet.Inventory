@@ -17,11 +17,11 @@ public class GetProductBySKUHandler : IQueryHandler<GetProductBySKUQuery, Result
     public async Task<Result<GetProductBySKUResponse>> Handle(GetProductBySKUQuery request, CancellationToken cancellationToken)
     {
         GetProductBySKUResponse? product = await _productsRepo
-            .Find(product => product.SKU == request.sku)
+            .Find(product => product.Sku == request.sku)
             .Include(stock => stock.ProductDetails)
             .Select(product => new GetProductBySKUResponse()
             {
-                SKU = product.SKU,
+                Sku = product.Sku,
                 ProductPrices = product.ProductPrices,
                 ProductDetails = product.ProductDetails,
                 ProductQuantity = product.ProductQuantity,

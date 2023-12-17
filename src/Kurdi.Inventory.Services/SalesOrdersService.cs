@@ -28,25 +28,25 @@ namespace Kurdi.Inventory.Services
             {
                 Discount = salesOrderDTO.SalesOrderItems
                 .Sum(item =>
-                 item.Quantity * products.Where(product => product.SKU == item.SKU).FirstOrDefault().ProductPrices.Discount),
+                 item.Quantity * products.Where(product => product.Sku == item.SKU).FirstOrDefault().ProductPrices.Discount),
                 StatusId = (int)SalesOrderStatusesEnum.ISSUED,
                 totalPrice = salesOrderDTO.SalesOrderItems
                 .Sum(item =>
-                 item.Quantity * products.Where(product => product.SKU == item.SKU).FirstOrDefault().ProductPrices.SellingPrice),
+                 item.Quantity * products.Where(product => product.Sku == item.SKU).FirstOrDefault().ProductPrices.SellingPrice),
             };
             salesOrdersRepo.CreateAsync(salesOrder);
             salesOrdersRepo.SaveChangesAsync();
 
             foreach (SalesOrderItemDTO salesOrderItem in salesOrderDTO.SalesOrderItems)
             {
-                Product product = products.Where(p => p.SKU == salesOrderItem.SKU).FirstOrDefault();
+                Product product = products.Where(p => p.Sku == salesOrderItem.SKU).FirstOrDefault();
                 SalesOrderProduct salesOrderProduct = new SalesOrderProduct()
                 {
                     SellingPricePerItem = product.ProductPrices.SellingPrice - product.ProductPrices.Discount,
                     CostPricePerItem = product.ProductPrices.CostPrice,
                     DiscountPerItem = product.ProductPrices.Discount,
                     SellingPricePerItemBeforeDiscount = product.ProductPrices.SellingPrice,
-                    SKU = product.SKU,
+                    SKU = product.Sku,
                     Quantity = salesOrderItem.Quantity,
                     SalesOrder = salesOrder,
                     SalesOrderId = salesOrder.Id

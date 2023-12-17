@@ -20,7 +20,7 @@ public class ReceivingService : IReceivingService
 
     public async Task ReceiveProduct(string sku, int quantity)
     {
-        Product product = _productsRepo.Find(product => product.SKU == sku).FirstOrDefault();
+        Product product = _productsRepo.Find(product => product.Sku == sku).FirstOrDefault();
         product.ProductQuantity.AddStock(quantity);
 
         _productsRepo.Update(product);
