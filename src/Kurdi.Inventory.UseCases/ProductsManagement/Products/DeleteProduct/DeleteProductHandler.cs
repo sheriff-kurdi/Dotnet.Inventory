@@ -18,11 +18,11 @@ public class DeleteProductHandler : ICommandHandler<DeleteProductCommand, Result
     public async Task<Result<string>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
         Product? product = _productsRepo.Find(stock => stock.Sku == request.sku).FirstOrDefault();
-        if(product is null) return Result.NotFound();
-        
+        if (product is null) return Result.NotFound();
+
         _productsRepo.Delete(product);
         await _productsRepo.SaveChangesAsync();
-        return Result.Success<string>(request.sku);    
+        return Result.Success<string>(request.sku);
     }
 
 

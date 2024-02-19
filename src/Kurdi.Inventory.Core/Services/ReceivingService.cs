@@ -27,7 +27,7 @@ public class ReceivingService : IReceivingService
 
         var domainEvent = new ReceiveProductEvent(sku, quantity);
         await _mediator.Publish(domainEvent);
-        
+
         await _productsRepo.SaveChangesAsync();
     }
 }

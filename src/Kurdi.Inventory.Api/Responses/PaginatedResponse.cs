@@ -11,7 +11,7 @@ namespace Kurdi.Inventory.Api.Responses
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
         public int TotalRecords { get; set; }
-        public PaginatedResponse(T data, int pageNumber, int pageSize, int totalRecords):base(data)
+        public PaginatedResponse(T data, int pageNumber, int pageSize, int totalRecords) : base(data)
         {
 
             this.PageNumber = pageNumber;
@@ -21,7 +21,7 @@ namespace Kurdi.Inventory.Api.Responses
             this.Succeeded = true;
             this.Errors = null;
             this.TotalRecords = totalRecords;
-            this.TotalPages = totalRecords/pageSize;
+            this.TotalPages = totalRecords / pageSize;
         }
     }
 }

@@ -16,5 +16,5 @@ namespace Kurdi.Inventory.Core.Entities.SalesOrderAggregate
         public int StatusId { get; set; }
         public SalesOrderStatus Status { get; set; }
         public List<SalesOrderProduct> SalesOrderProducts { get; set; } = new List<SalesOrderProduct>();
-    } 
+    }
 }

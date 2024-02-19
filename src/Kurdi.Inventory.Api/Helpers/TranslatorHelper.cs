@@ -10,8 +10,8 @@ namespace Kurdi.Inventory.Api.Helpers
     {
         public static string Translate(string key)
         {
-            var configrarion = new ConfigurationBuilder().AddJsonFile("Resourses/resourses.ar.json").Build();
-            return configrarion.GetValue<string>(key) ?? key;
+            var configuration = new ConfigurationBuilder().AddJsonFile("Resourses/resourses.ar.json").Build();
+            return configuration.GetValue<string>(key) ?? key;
         }
     }
 }

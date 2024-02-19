@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kurdi.Inventory.Core.Entities.CategoryAggregate;
 
-public class Category: IAggregateRoot
+public class Category : IAggregateRoot
 {
     public string Name { get; set; } = string.Empty;
     public bool HasParent { get; set; }

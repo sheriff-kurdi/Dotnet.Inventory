@@ -20,7 +20,7 @@ namespace Kurdi.Inventory.IntegrationTest
             .WithPassword("password")
             .Build();
 
-        
+
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -29,7 +29,7 @@ namespace Kurdi.Inventory.IntegrationTest
                 var appDBContextDescriptor = services
                 .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<AppDbContext>));
 
-                if (appDBContextDescriptor != null )
+                if (appDBContextDescriptor != null)
                 {
                     services.Remove(appDBContextDescriptor);
                 }
@@ -52,4 +52,4 @@ namespace Kurdi.Inventory.IntegrationTest
             return _postgresDbContainer.StopAsync();
         }
     }
-}   
+}

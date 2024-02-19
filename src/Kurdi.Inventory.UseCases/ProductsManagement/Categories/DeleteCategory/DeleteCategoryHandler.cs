@@ -18,11 +18,11 @@ public class DeleteCategoryHandler : ICommandHandler<DeleteCategoryCommand, Resu
     public async Task<Result<string>> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {
         Category? category = _categoriesRepo.Find(category => category.Name == request.name).FirstOrDefault();
-        if(category is null) return Result.NotFound();
-        
+        if (category is null) return Result.NotFound();
+
         _categoriesRepo.Delete(category);
         await _categoriesRepo.SaveChangesAsync();
-        return Result.Success<string>(request.name);    
+        return Result.Success<string>(request.name);
     }
 
 

@@ -9,7 +9,7 @@ namespace Kurdi.Inventory.Core.Exceptions
 {
     public class NegativeStockTransactionException : Exception
     {
-        
+
         public NegativeStockTransactionException() : base(String.Format("Transaction leeds to negative stock has been disabled"))
         {
 

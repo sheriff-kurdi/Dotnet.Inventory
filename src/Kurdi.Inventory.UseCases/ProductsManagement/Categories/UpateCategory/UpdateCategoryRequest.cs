@@ -11,8 +11,10 @@ public class UpdateCategoryRequest
     public List<CategoryDetails> CategoryDetails { get; set; } = new List<CategoryDetails>();
     public bool Activation { get; set; }
 
-       public Category ToCategory(){
-        return new Category(){
+    public Category ToCategory()
+    {
+        return new Category()
+        {
             Name = Name,
             HasParent = HasParent,
             ParentName = ParentName,

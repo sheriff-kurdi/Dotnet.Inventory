@@ -30,7 +30,7 @@ public class UpdateProductHandler : ICommandHandler<UpdateProductCommand, Result
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
-        
+
         if (request.sku != request.updateProductRequest.SKU) return Result.Error(["sku not the same"]);
 
         //TODO: handle response from here status code and type

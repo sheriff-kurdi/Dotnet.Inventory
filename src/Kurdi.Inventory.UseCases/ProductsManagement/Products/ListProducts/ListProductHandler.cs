@@ -25,7 +25,7 @@ public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnume
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
-        
+
 
         var products = _productsRepo.FindAll();
 
@@ -64,7 +64,8 @@ public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnume
         var productsResponse = products
             .Skip((request.listProductsRequest.PageNumber - 1) * request.listProductsRequest.PageSize)
             .Take(request.listProductsRequest.PageSize)
-            .Select(product => new ListProductsItemResponse(){
+            .Select(product => new ListProductsItemResponse()
+            {
                 Sku = product.Sku,
                 ProductPrices = product.ProductPrices,
                 ProductDetails = product.ProductDetails,

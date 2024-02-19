@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
 
-public class ListCategoriesValidator  : AbstractValidator<ListCategoriesRequest>
+public class ListCategoriesValidator : AbstractValidator<ListCategoriesRequest>
 {
     public ListCategoriesValidator()
     {

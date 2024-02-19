@@ -11,10 +11,11 @@ namespace Kurdi.Inventory.Core.Entities.ProductAggregate
         {
             get
             {
-                if (IsDiscounted) {return _sellingPrice - Discount;}
-                else {return _sellingPrice;}
+                if (IsDiscounted) { return _sellingPrice - Discount; }
+                else { return _sellingPrice; }
             }
-            set {
+            set
+            {
                 _sellingPrice = value;
             }
         }

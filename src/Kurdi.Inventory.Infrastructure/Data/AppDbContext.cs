@@ -24,7 +24,7 @@ namespace Kurdi.Inventory.Infrastructure.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to postgres with connection string from app settings
-             DatabaseSettings databaseSettings = _configuration.Value;
+            DatabaseSettings databaseSettings = _configuration.Value;
 
             //options.UseSqlServer(databaseSettings.SqlServerConnectionString);
             options.UseNpgsql(databaseSettings.PostgresConnectionString).UseSnakeCaseNamingConvention();

@@ -23,7 +23,8 @@ namespace Kurdi.Inventory.Api.Middleware
                 {
                     context.Response.StatusCode = 404;
                     validLanguage = false;
-                    var responseBody = new {
+                    var responseBody = new
+                    {
                         successed = false,
                         message = Translator.Translate("VALIDATION:NOT_VALID_LANGUAGE")
                     };

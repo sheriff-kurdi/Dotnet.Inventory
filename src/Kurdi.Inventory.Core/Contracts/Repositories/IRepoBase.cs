@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kurdi.Inventory.Core.Contracts.Repositories
 {
     //public interface IRepoBase<T> where T : class, IAggregateRoot
-    public interface IRepoBase<T> 
+    public interface IRepoBase<T>
     {
         IQueryable<T> FindAll(int pageSize, int pageNumber);
         IQueryable<T> FindAll();

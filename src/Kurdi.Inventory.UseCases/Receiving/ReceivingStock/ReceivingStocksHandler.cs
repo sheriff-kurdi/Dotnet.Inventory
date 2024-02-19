@@ -8,18 +8,18 @@ namespace Kurdi.Inventory.UseCases.Receiving;
 
 public class ReceivingStocksHandler : ICommandHandler<ReceivingStocksCommand, Result>
 {
-  private readonly IReceivingService _receivingService;
+    private readonly IReceivingService _receivingService;
 
-  public ReceivingStocksHandler(IReceivingService receivingService)
-  {
-    _receivingService = receivingService;
-  }
+    public ReceivingStocksHandler(IReceivingService receivingService)
+    {
+        _receivingService = receivingService;
+    }
 
     public async Task<Result> Handle(ReceivingStocksCommand request, CancellationToken cancellationToken)
     {
-      await _receivingService.ReceiveProduct(request.ReceiveProductDTO.sku, request.ReceiveProductDTO.quantity);
-      return Result.Success();
+        await _receivingService.ReceiveProduct(request.ReceiveProductDTO.sku, request.ReceiveProductDTO.quantity);
+        return Result.Success();
     }
 
- 
+
 }

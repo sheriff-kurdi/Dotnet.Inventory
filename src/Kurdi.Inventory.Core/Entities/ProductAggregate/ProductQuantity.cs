@@ -17,11 +17,11 @@ namespace Kurdi.Inventory.Core.Entities.ProductAggregate
         {
             this.TotalStock += quantity;
             this.AvailableStock += quantity;
-        }    
+        }
 
         public void ReserveStock(int quantity)
         {
-            if(this.AvailableStock - quantity < 0)
+            if (this.AvailableStock - quantity < 0)
             {
                 throw new NegativeStockTransactionException();
             }

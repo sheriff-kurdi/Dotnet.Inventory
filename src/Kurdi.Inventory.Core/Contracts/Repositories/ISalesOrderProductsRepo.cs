@@ -5,7 +5,7 @@ namespace Kurdi.Inventory.Core.Contracts.Repositories
 {
     public interface ISalesOrderProductsRepo : IRepoBase<SalesOrderProduct>
     {
-    
+
 
     }
 }

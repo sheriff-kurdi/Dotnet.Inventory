@@ -23,7 +23,7 @@ public class CreateProductHandler : ICommandHandler<CreateProductCommand, Result
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
-        
+
         //TODO:add supplier id to the product and handle timestamps
         await _productsRepo.CreateAsync(request.createProductRequest.ToProduct());
         await _productsRepo.SaveChangesAsync();

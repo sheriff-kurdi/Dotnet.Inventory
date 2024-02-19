@@ -6,7 +6,7 @@ using Kurdi.Inventory.Core.Contracts.Repositories;
 
 namespace Kurdi.Inventory.Infrastructure.DataAccess
 {
-    public class CategoriesRepo : RepoBase<Category> , ICategoriesRepo
+    public class CategoriesRepo : RepoBase<Category>, ICategoriesRepo
     {
         public CategoriesRepo(AppDbContext db) : base(db)
         {
