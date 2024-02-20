@@ -1,11 +1,13 @@
 
 using FluentValidation;
+using HealthChecks.UI.Client;
 using Kurdi.Inventory.Api.Configurations;
 using Kurdi.Inventory.Api.Helpers;
 using Kurdi.Inventory.Api.Middleware;
 using Kurdi.Inventory.Api.Routes.Portal;
 using Kurdi.Inventory.Infrastructure.Data;
 using Kurdi.Inventory.UseCases;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
+builder.Services.AddConfiguredHealthChecks();
 builder.Services.AddDbContext<AppDbContext>();
 
 #region  custom services injection
@@ -36,6 +39,10 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.MapHealthChecks("health", new HealthCheckOptions()
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 app.UseCors(cors => { cors.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 app.UseExceptionHandler(opt => { });
 app.UseLanguageMiddleware();
