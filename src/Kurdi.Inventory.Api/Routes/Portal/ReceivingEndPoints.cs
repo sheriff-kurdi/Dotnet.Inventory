@@ -1,6 +1,7 @@
 
 using Kurdi.Inventory.Api.Requests.Receiving;
 using Kurdi.Inventory.UseCases.Receiving;
+using Kurdi.Inventory.UseCases.Receiving.ReceivingStock;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace Kurdi.Inventory.Api.Routes.Portal

@@ -1,6 +1,6 @@
 ﻿using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products.GetProductBySKU;
 
-public record GetProductBySKUQuery(string sku) : IQuery<Result<GetProductBySKUResponse>>;
+public record GetProductBySkuQuery(string Sku) : IQuery<Result<GetProductBySkuResponse>>;

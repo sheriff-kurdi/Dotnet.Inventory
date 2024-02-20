@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Kurdi.Inventory.UseCases.ProductsManagement.CommonValidators;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products.UpdateProduct;
 
 public class UpdateProductValidator : AbstractValidator<UpdateProductRequest>
 {

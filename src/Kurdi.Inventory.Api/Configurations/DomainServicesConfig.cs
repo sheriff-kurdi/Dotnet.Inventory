@@ -1,4 +1,6 @@
 ﻿using Kurdi.Inventory.Core;
+using Kurdi.Inventory.Core.Contracts.Services;
+using Kurdi.Inventory.Core.Services;
 using Kurdi.Inventory.Services;
 
 namespace Kurdi.Inventory.Api.Configurations;

@@ -1,4 +1,4 @@
-﻿namespace Kurdi.Inventory.Core;
+﻿namespace Kurdi.Inventory.Core.Entities;
 
 public interface IAggregateRoot
 {

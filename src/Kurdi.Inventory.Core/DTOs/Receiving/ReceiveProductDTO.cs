@@ -1,6 +1,4 @@
-﻿using System;
+﻿namespace Kurdi.Inventory.Core.DTOs.Receiving;
 
-namespace Kurdi.Inventory.Core;
-
-public record ReceiveProductDTO(string sku, int quantity);
+public record ReceiveProductDto(string Sku, int Quantity);
 

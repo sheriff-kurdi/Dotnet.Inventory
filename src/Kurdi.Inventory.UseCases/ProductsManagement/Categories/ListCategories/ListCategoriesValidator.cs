@@ -1,7 +1,6 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.ListCategories;
 
 public class ListCategoriesValidator : AbstractValidator<ListCategoriesRequest>
 {

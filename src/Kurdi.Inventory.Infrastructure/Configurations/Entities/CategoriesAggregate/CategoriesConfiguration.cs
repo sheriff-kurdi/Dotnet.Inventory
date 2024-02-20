@@ -10,18 +10,18 @@ namespace Kurdi.Inventory.Infrastructure.Configurations.Entities.CategoriesAggre
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(Category => Category.Name);
-            builder.HasMany(Category => Category.CategoryDetails).WithOne().HasForeignKey("Name"); ;
-            builder.Property(Category => Category.Name).IsRequired();
-            builder.Property(Category => Category.Activation).IsRequired();
+            builder.HasKey(category => category.Name);
+            builder.HasMany(category => category.CategoryDetails).WithOne().HasForeignKey("Name");
+            builder.Property(category => category.Name).IsRequired();
+            builder.Property(category => category.Activation).IsRequired();
 
-            builder.HasOne(Category => Category.Parent).WithMany().HasForeignKey("ParentName");
-            builder.Property(Category => Category.HasParent).IsRequired();
-            builder.Property(Category => Category.ParentName);
+            builder.HasOne(category => category.Parent).WithMany().HasForeignKey("ParentName");
+            builder.Property(category => category.HasParent).IsRequired();
+            builder.Property(category => category.ParentName);
 
-            builder.OwnsOne(Category => Category.TimeStamps).Property(timeStamps => timeStamps.CreatedAt).HasColumnName("created_at");
-            builder.OwnsOne(Category => Category.TimeStamps).Property(timeStamps => timeStamps.UpdatedAt).HasColumnName("updated_at");
-            builder.OwnsOne(Category => Category.TimeStamps).Property(timeStamps => timeStamps.DeletedAt).HasColumnName("deleted_at");
+            builder.OwnsOne(category => category.TimeStamps).Property(timeStamps => timeStamps.CreatedAt).HasColumnName("created_at");
+            builder.OwnsOne(category => category.TimeStamps).Property(timeStamps => timeStamps.UpdatedAt).HasColumnName("updated_at");
+            builder.OwnsOne(category => category.TimeStamps).Property(timeStamps => timeStamps.DeletedAt).HasColumnName("deleted_at");
 
 
 
@@ -41,7 +41,7 @@ namespace Kurdi.Inventory.Infrastructure.Configurations.Entities.CategoriesAggre
                     ParentName = null,
                 });
 
-            builder.OwnsOne(Category => Category.TimeStamps).HasData(
+            builder.OwnsOne(category => category.TimeStamps).HasData(
              new { CategoryName = "MEN", CreatedAt = DateTime.UtcNow, UpdatedAt = (DateTime?)null, DeletedAt = (DateTime?)null },
              new { CategoryName = "WOMEN", CreatedAt = DateTime.UtcNow, UpdatedAt = (DateTime?)null, DeletedAt = (DateTime?)null }
          );

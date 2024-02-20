@@ -4,22 +4,17 @@ using Kurdi.Inventory.Api.Helpers;
 namespace Kurdi.Inventory.Api.Middleware
 {
 
-    public class LanguageMidleware
+    public class LanguageMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-        public LanguageMidleware(RequestDelegate next)
-        {
-            _next = next;
-        }
         public async Task InvokeAsync(HttpContext context)
         {
-            List<string> SupportedLanguages = new List<string>() { "ar", "en" };
+            List<string> supportedLanguages = ["ar", "en"];
 
-            bool validLanguage = true;
+            var validLanguage = true;
             string? languageHeader = context.Request.Headers["Language"];
             if (!string.IsNullOrEmpty(languageHeader))
             {
-                if (!SupportedLanguages.Contains(languageHeader))
+                if (!supportedLanguages.Contains(languageHeader))
                 {
                     context.Response.StatusCode = 404;
                     validLanguage = false;
@@ -40,17 +35,17 @@ namespace Kurdi.Inventory.Api.Middleware
 
             if (validLanguage)
             {
-                await _next(context);
+                await next(context);
             }
         }
     }
 
-    public static class LanguageMidlewareExtensions
+    public static class LanguageMiddlewareExtensions
     {
         public static IApplicationBuilder UseLanguageMiddleware(
             this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<LanguageMidleware>();
+            return builder.UseMiddleware<LanguageMiddleware>();
         }
     }
 }

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Kurdi.Inventory.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
 

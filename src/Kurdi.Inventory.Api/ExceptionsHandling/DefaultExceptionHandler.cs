@@ -4,17 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kurdi.Inventory.Api.ExceptionsHandling;
 
-public class DefaultExceptionHandler : IExceptionHandler
+public class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly ILogger<DefaultExceptionHandler> _logger;
-    public DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger)
-    {
-        _logger = logger;
-    }
-
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        _logger.LogError(exception, "An unexpected error occurred");
+        logger.LogError(exception, "An unexpected error occurred");
 
         await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {
@@ -23,7 +17,7 @@ public class DefaultExceptionHandler : IExceptionHandler
             Title = "An unexpected error occurred",
             Detail = exception.Message,
             Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}"
-        });
+        }, cancellationToken: cancellationToken);
 
         return true;
     }

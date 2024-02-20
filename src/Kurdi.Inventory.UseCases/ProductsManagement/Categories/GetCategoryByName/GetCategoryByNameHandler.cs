@@ -3,21 +3,15 @@ using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.GetCategoryByName;
 
-public class GetCategoryByNameHandler : IQueryHandler<GetCategoryByNameQuery, Result<GetCategoryByNameResponse>>
+public class GetCategoryByNameHandler(ICategoriesRepo categoriesRepo)
+    : IQueryHandler<GetCategoryByNameQuery, Result<GetCategoryByNameResponse>>
 {
-    private readonly ICategoriesRepo _categoriesRepo;
-
-    public GetCategoryByNameHandler(ICategoriesRepo categoriesRepo)
-    {
-        _categoriesRepo = categoriesRepo;
-    }
-
     public async Task<Result<GetCategoryByNameResponse>> Handle(GetCategoryByNameQuery request, CancellationToken cancellationToken)
     {
-        GetCategoryByNameResponse? categoryResponse = await _categoriesRepo
-        .Find(category => category.Name == request.name)
+        GetCategoryByNameResponse? categoryResponse = await categoriesRepo
+        .Find(category => category.Name == request.Name)
         .Include(category => category.CategoryDetails).Select(category => new GetCategoryByNameResponse()
         {
             Name = category.Name,
@@ -26,11 +20,11 @@ public class GetCategoryByNameHandler : IQueryHandler<GetCategoryByNameQuery, Re
             CategoryDetails = category.CategoryDetails,
             Activation = category.Activation
 
-        }).FirstOrDefaultAsync();
+        }).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
 
         if (categoryResponse == null) return Result.NotFound();
 
-        return Result.Success<GetCategoryByNameResponse>(categoryResponse);
+        return Result.Success(categoryResponse);
     }
 }

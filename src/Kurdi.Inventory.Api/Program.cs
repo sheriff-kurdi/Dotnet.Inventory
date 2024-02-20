@@ -48,15 +48,12 @@ app.UseExceptionHandler(opt => { });
 app.UseLanguageMiddleware();
 
 #region endpoints
-//TODO: remove to seperate file
+//TODO: remove to separate file
 app.UseProductsManagementsEndPoints();
 app.UseReceivingEndPoints();
 #endregion
 
-app.MapGet("/", () =>
-{
-    return Translator.Translate("VALIDATION:NOT_VALID_LANGUAGE");
-});
+app.MapGet("/", () => Translator.Translate("VALIDATION:NOT_VALID_LANGUAGE"));
 app.Run();
 
 // for exposing to Integration test

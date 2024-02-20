@@ -3,13 +3,9 @@ using Kurdi.Inventory.Api.Requests.SalesOrders;
 using Kurdi.Inventory.Api.Requests.Stock;
 using Kurdi.Inventory.Api.Responses;
 using Kurdi.Inventory.Api.Responses.Categories;
-using Kurdi.Inventory.Api.Responses.Stock;
-using Kurdi.Inventory.Core.Contracts;
 using Kurdi.Inventory.Core.Contracts.Repositories;
-using Kurdi.Inventory.Core.DTOs.SalesOrders;
-using Kurdi.Inventory.Core.Entities.CategoryAggregate;
-using Kurdi.Inventory.Core.Entities.ProductAggregate;
 using Kurdi.Inventory.Core.Entities.SalesOrderAggregate;
+using Kurdi.Inventory.Core.SalesOrders;
 using Kurdi.Inventory.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,13 +40,13 @@ namespace Kurdi.Inventory.Api.Routes.Portal
                     categories = categories.Where(c => c.Name == requestParameters.Query.ToUpper().Trim() || c.TranslatedName.Contains(requestParameters.Query));
                 }
 
-                return Results.Ok(new Responses.PaginatedResponse<List<CategoryResponse>>(await categories.ToListAsync(), requestParameters.PageNumber, requestParameters.PageSize, categoriesRepository.Count()));
+                return Results.Ok(new PaginatedResponse<List<CategoryResponse>>(await categories.ToListAsync(), requestParameters.PageNumber, requestParameters.PageSize, categoriesRepository.Count()));
             });
 
 
             salesOrdersGroup.MapPost("/", ([FromBody] SalesOrderRequest salesOrderRequest, [FromServices] SalesOrdersService salesOrdersService) =>
             {
-                SalesOrder salesOrder = salesOrdersService.CreateOrder(new SalesOrderDTO(salesOrderRequest.SalesOrderItems));
+                SalesOrder salesOrder = salesOrdersService.CreateOrder(new SalesOrderDto(salesOrderRequest.SalesOrderItems));
                 return new BaseResponse<SalesOrder>(salesOrder);
             });
 

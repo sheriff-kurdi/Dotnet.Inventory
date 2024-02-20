@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Kurdi.Inventory.Core;
+namespace Kurdi.Inventory.Core.Contracts.Services;
 
 public interface IReceivingService
 {

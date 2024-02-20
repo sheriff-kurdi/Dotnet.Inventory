@@ -6,7 +6,7 @@ using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.UpdateCategory;
 
 public class UpdateCategoryHandler : ICommandHandler<UpdateCategoryCommand, Result>
 {
@@ -22,18 +22,18 @@ public class UpdateCategoryHandler : ICommandHandler<UpdateCategoryCommand, Resu
 
     public async Task<Result> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        ValidationResult validationResult = await _validator.ValidateAsync(request.updateCategoryRequest);
+        ValidationResult validationResult = await _validator.ValidateAsync(request.UpdateCategoryRequest);
         if (!validationResult.IsValid)
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
 
-        if (request.categoryName != request.updateCategoryRequest.Name) return Result.Error(["category name not the same"]);
+        if (request.CategoryName != request.UpdateCategoryRequest.Name) return Result.Error(["category name not the same"]);
 
-        Category? actualCategory = await _categoriesRepo.Find(category => category.Name == request.updateCategoryRequest.Name).FirstOrDefaultAsync();
+        Category? actualCategory = await _categoriesRepo.Find(category => category.Name == request.UpdateCategoryRequest.Name).FirstOrDefaultAsync();
         if (actualCategory == null) return Result.NotFound();
 
-        _categoriesRepo.Update(request.updateCategoryRequest.ToCategory());
+        _categoriesRepo.Update(request.UpdateCategoryRequest.ToCategory());
         await _categoriesRepo.SaveChangesAsync();
         return Result.Success();
     }

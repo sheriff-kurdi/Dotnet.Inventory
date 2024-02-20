@@ -1,9 +1,9 @@
 
-namespace Kurdi.Inventory.Core.DTOs.SalesOrders
+namespace Kurdi.Inventory.Core.SalesOrders
 {
-    public class SalesOrderItemDTO
+    public class SalesOrderItemDto
     {
-        public string SKU { get; set; } = string.Empty;
+        public string Sku { get; set; } = string.Empty;
         public int Quantity { get; set; }
     }
 }

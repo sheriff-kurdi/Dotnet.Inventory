@@ -1,18 +1,13 @@
 ﻿using Kurdi.Inventory.Infrastructure.Data;
 using Kurdi.Inventory.Core.Entities.SalesOrderAggregate;
-using Kurdi.Inventory.Core.DTOs.SalesOrders;
 using Kurdi.Inventory.Core.Contracts.Repositories;
+using Kurdi.Inventory.Core.SalesOrders;
 
 namespace Kurdi.Inventory.Infrastructure.DataAccess
 {
-    public class SalesOrdersRepo : RepoBase<SalesOrder>, ISalesOrdersRepo
+    public class SalesOrdersRepo(AppDbContext db) : RepoBase<SalesOrder>(db), ISalesOrdersRepo
     {
-        public SalesOrdersRepo(AppDbContext db) : base(db)
-        {
-
-        }
-
-        public SalesOrder CreateOrder(SalesOrderDTO salesOrderDTO)
+        public SalesOrder CreateOrder(SalesOrderDto salesOrderDto)
         {
             return new SalesOrder();
         }

@@ -1,6 +1,6 @@
 ﻿using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.CreateCategory;
 
-public record CreateCategoryCommand(CreateCategoryRequest createCategoryRequest) : ICommand<Result<string>>;
+public record CreateCategoryCommand(CreateCategoryRequest CreateCategoryRequest) : ICommand<Result<string>>;

@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Kurdi.Inventory.Core.Entities.ProductAggregate;
 
 namespace Kurdi.Inventory.Core.Entities.SalesOrderAggregate
@@ -15,7 +11,7 @@ namespace Kurdi.Inventory.Core.Entities.SalesOrderAggregate
         public int SalesOrderId { get; set; }
         public SalesOrder SalesOrder { get; set; }
         [ForeignKey("Product")]
-        public string SKU { get; set; }
+        public string Sku { get; set; }
         public Product Product { get; set; }
         public double CostPricePerItem { get; set; }
         public double SellingPricePerItem { get; set; }

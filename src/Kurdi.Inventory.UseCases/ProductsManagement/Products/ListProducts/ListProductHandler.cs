@@ -5,65 +5,58 @@ using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products.ListProducts;
 
-public class ListProductHandler : IQueryHandler<ListProductsQuery, Result<IEnumerable<ListProductsItemResponse>>>
+public class ListProductHandler(IProductsRepo productsRepo, IValidator<ListProductsRequest> validator)
+    : IQueryHandler<ListProductsQuery, Result<IEnumerable<ListProductsItemResponse>>>
 {
-    private readonly IProductsRepo _productsRepo;
-    private readonly IValidator<ListProductsRequest> _validator;
-
-    public ListProductHandler(IProductsRepo productsRepo, IValidator<ListProductsRequest> validator)
-    {
-        _productsRepo = productsRepo;
-        _validator = validator;
-    }
     public async Task<Result<IEnumerable<ListProductsItemResponse>>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
     {
 
-        ValidationResult validationResult = await _validator.ValidateAsync(request.listProductsRequest);
+        ValidationResult validationResult = await validator.ValidateAsync(request.ListProductsRequest, cancellationToken);
         if (!validationResult.IsValid)
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
 
 
-        var products = _productsRepo.FindAll();
+        var products = productsRepo.FindAll();
 
 
         products = products
             .Include(s => s.ProductDetails);
 
 
-        if (!string.IsNullOrEmpty(request.listProductsRequest.Sku))
+        if (!string.IsNullOrEmpty(request.ListProductsRequest.Sku))
         {
-            products = products.Where(p => p.Sku == request.listProductsRequest.Sku);
+            products = products.Where(p => p.Sku == request.ListProductsRequest.Sku);
         }
-        if (!string.IsNullOrEmpty(request.listProductsRequest.Category))
+        if (!string.IsNullOrEmpty(request.ListProductsRequest.Category))
         {
-            products = products.Where(p => p.CategoryName == request.listProductsRequest.Category);
+            products = products.Where(p => p.CategoryName == request.ListProductsRequest.Category);
         }
-        if (!string.IsNullOrEmpty(request.listProductsRequest.Name))
+        if (!string.IsNullOrEmpty(request.ListProductsRequest.Name))
         {
-            products = products.Where(p => p.ProductDetails.Any(pd => pd.Name == request.listProductsRequest.Name));
+            products = products.Where(p => p.ProductDetails.Any(pd => pd.Name == request.ListProductsRequest.Name));
         }
-        if (!string.IsNullOrEmpty(request.listProductsRequest.Query))
+        if (!string.IsNullOrEmpty(request.ListProductsRequest.Query))
         {
 
             products = products.Where(p =>
-                 p.Sku == request.listProductsRequest.Query
-                || p.ProductDetails.Any(pd => pd.Name.Contains(request.listProductsRequest.Query)));
+                 p.Sku == request.ListProductsRequest.Query
+                || p.ProductDetails.Any(pd => pd.Name.Contains(request.ListProductsRequest.Query)));
         }
 
         var pagedInfo = new PagedInfo(
-                    request.listProductsRequest.PageNumber
-                    , request.listProductsRequest.PageSize
-                    , (int)Math.Ceiling(products.Count() / (double)request.listProductsRequest.PageSize)
+                    request.ListProductsRequest.PageNumber
+                    , request.ListProductsRequest.PageSize
+                    , (int)Math.Ceiling(products.Count() / (double)request.ListProductsRequest.PageSize)
                     , products.Count());
 
 
         var productsResponse = products
-            .Skip((request.listProductsRequest.PageNumber - 1) * request.listProductsRequest.PageSize)
-            .Take(request.listProductsRequest.PageSize)
+            .Skip((request.ListProductsRequest.PageNumber - 1) * request.ListProductsRequest.PageSize)
+            .Take(request.ListProductsRequest.PageSize)
             .Select(product => new ListProductsItemResponse()
             {
                 Sku = product.Sku,

@@ -4,29 +4,22 @@ using Kurdi.Inventory.Core.Contracts.Repositories;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.CreateCategory;
 
-public class CreateCategoryHandler : ICommandHandler<CreateCategoryCommand, Result<string>>
+public class CreateCategoryHandler(ICategoriesRepo categoriesRepo, IValidator<CreateCategoryRequest> validator)
+    : ICommandHandler<CreateCategoryCommand, Result<string>>
 {
-    private readonly ICategoriesRepo _categoriesRepo;
-    private readonly IValidator<CreateCategoryRequest> _validator;
-
-    public CreateCategoryHandler(ICategoriesRepo categoriesRepo, IValidator<CreateCategoryRequest> validator)
-    {
-        _categoriesRepo = categoriesRepo;
-        _validator = validator;
-    }
     public async Task<Result<string>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        ValidationResult validationResult = await _validator.ValidateAsync(request.createCategoryRequest);
+        ValidationResult validationResult = await validator.ValidateAsync(request.CreateCategoryRequest, cancellationToken);
         if (!validationResult.IsValid)
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
 
-        await _categoriesRepo.CreateAsync(request.createCategoryRequest.ToCategory());
-        await _categoriesRepo.SaveChangesAsync();
-        return Result.Success<string>(request.createCategoryRequest.Name);
+        await categoriesRepo.CreateAsync(request.CreateCategoryRequest.ToCategory());
+        await categoriesRepo.SaveChangesAsync();
+        return Result.Success(request.CreateCategoryRequest.Name);
 
     }
 }

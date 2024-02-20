@@ -12,17 +12,17 @@ namespace Kurdi.Inventory.Infrastructure.Configurations.Entities.ProductsAggrega
         public void Configure(EntityTypeBuilder<ProductDetails> builder)
         {
             builder.HasKey(details => new { details.LanguageCode, details.Sku });
-            builder.Property(ProductDetails => ProductDetails.Name);
-            builder.Property(ProductDetails => ProductDetails.Description);
-            builder.Property(ProductDetails => ProductDetails.Sku);
-            builder.Property(ProductDetails => ProductDetails.LanguageCode);
+            builder.Property(productDetails => productDetails.Name);
+            builder.Property(productDetails => productDetails.Description);
+            builder.Property(productDetails => productDetails.Sku);
+            builder.Property(productDetails => productDetails.LanguageCode);
 
-            builder.HasOne(ProductDetails => ProductDetails.Language).WithMany().HasForeignKey("LanguageCode");
-            builder.HasOne(ProductDetails => ProductDetails.Product).WithMany().HasForeignKey("Sku");
+            builder.HasOne(productDetails => productDetails.Language).WithMany().HasForeignKey("LanguageCode");
+            builder.HasOne(productDetails => productDetails.Product).WithMany().HasForeignKey("Sku");
 
-            builder.OwnsOne(ProductDetails => ProductDetails.TimeStamps).Property(timeStamps => timeStamps.CreatedAt).HasColumnName("created_at");
-            builder.OwnsOne(ProductDetails => ProductDetails.TimeStamps).Property(timeStamps => timeStamps.UpdatedAt).HasColumnName("updated_at");
-            builder.OwnsOne(ProductDetails => ProductDetails.TimeStamps).Property(timeStamps => timeStamps.DeletedAt).HasColumnName("deleted_at");
+            builder.OwnsOne(productDetails => productDetails.TimeStamps).Property(timeStamps => timeStamps.CreatedAt).HasColumnName("created_at");
+            builder.OwnsOne(productDetails => productDetails.TimeStamps).Property(timeStamps => timeStamps.UpdatedAt).HasColumnName("updated_at");
+            builder.OwnsOne(productDetails => productDetails.TimeStamps).Property(timeStamps => timeStamps.DeletedAt).HasColumnName("deleted_at");
 
             builder.HasData(
                 new ProductDetails
@@ -54,7 +54,7 @@ namespace Kurdi.Inventory.Infrastructure.Configurations.Entities.ProductsAggrega
                 }
             );
 
-            builder.OwnsOne(ProductDetails => ProductDetails.TimeStamps).HasData(
+            builder.OwnsOne(productDetails => productDetails.TimeStamps).HasData(
              new { ProductDetailsSku = "1", ProductDetailsLanguageCode = "ar", CreatedAt = DateTime.UtcNow, UpdatedAt = (DateTime?)null, DeletedAt = (DateTime?)null },
              new { ProductDetailsSku = "1", ProductDetailsLanguageCode = "en", CreatedAt = DateTime.UtcNow, UpdatedAt = (DateTime?)null, DeletedAt = (DateTime?)null },
              new { ProductDetailsSku = "2", ProductDetailsLanguageCode = "ar", CreatedAt = DateTime.UtcNow, UpdatedAt = (DateTime?)null, DeletedAt = (DateTime?)null },

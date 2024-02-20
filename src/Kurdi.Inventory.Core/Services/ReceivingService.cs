@@ -1,33 +1,27 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Kurdi.Inventory.Core.Contracts.Repositories;
+using Kurdi.Inventory.Core.Contracts.Services;
 using Kurdi.Inventory.Core.Entities.ProductAggregate;
+using Kurdi.Inventory.Core.Events.Receiving.ReceiveProduct;
 using MediatR;
 
-namespace Kurdi.Inventory.Core;
+namespace Kurdi.Inventory.Core.Services;
 
-public class ReceivingService : IReceivingService
+public class ReceivingService(IProductsRepo productsRepo, IMediator mediator) : IReceivingService
 {
-    private readonly IProductsRepo _productsRepo;
-    private readonly IMediator _mediator;
-
-    public ReceivingService(IProductsRepo productsRepo, IMediator mediator)
-    {
-        _productsRepo = productsRepo;
-        _mediator = mediator;
-    }
-
     public async Task ReceiveProduct(string sku, int quantity)
     {
-        Product product = _productsRepo.Find(product => product.Sku == sku).FirstOrDefault();
-        product.ProductQuantity.AddStock(quantity);
-
-        _productsRepo.Update(product);
+        Product product = productsRepo.Find(product => product.Sku == sku).FirstOrDefault();
+        if (product != null)
+        {
+            product.ProductQuantity.AddStock(quantity);
+            productsRepo.Update(product);
+        }
 
         var domainEvent = new ReceiveProductEvent(sku, quantity);
-        await _mediator.Publish(domainEvent);
+        await mediator.Publish(domainEvent);
 
-        await _productsRepo.SaveChangesAsync();
+        await productsRepo.SaveChangesAsync();
     }
 }

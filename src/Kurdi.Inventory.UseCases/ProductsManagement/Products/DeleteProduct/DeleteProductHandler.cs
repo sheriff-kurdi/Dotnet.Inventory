@@ -3,26 +3,18 @@ using Kurdi.Inventory.Core.Entities.ProductAggregate;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products.DeleteProduct;
 
-public class DeleteProductHandler : ICommandHandler<DeleteProductCommand, Result<string>>
+public class DeleteProductHandler(IProductsRepo productsRepo) : ICommandHandler<DeleteProductCommand, Result<string>>
 {
-
-    private readonly IProductsRepo _productsRepo;
-
-    public DeleteProductHandler(IProductsRepo productsRepo)
-    {
-        _productsRepo = productsRepo;
-    }
-
     public async Task<Result<string>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        Product? product = _productsRepo.Find(stock => stock.Sku == request.sku).FirstOrDefault();
+        Product? product = productsRepo.Find(stock => stock.Sku == request.Sku).FirstOrDefault();
         if (product is null) return Result.NotFound();
 
-        _productsRepo.Delete(product);
-        await _productsRepo.SaveChangesAsync();
-        return Result.Success<string>(request.sku);
+        productsRepo.Delete(product);
+        await productsRepo.SaveChangesAsync();
+        return Result.Success(request.Sku);
     }
 
 

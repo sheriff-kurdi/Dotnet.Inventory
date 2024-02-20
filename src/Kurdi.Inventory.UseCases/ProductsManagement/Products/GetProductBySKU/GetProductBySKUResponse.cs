@@ -1,8 +1,8 @@
 ﻿using Kurdi.Inventory.Core.Entities.ProductAggregate;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products.GetProductBySKU;
 
-public class GetProductBySKUResponse : Product
+public class GetProductBySkuResponse : Product
 {
 
 }

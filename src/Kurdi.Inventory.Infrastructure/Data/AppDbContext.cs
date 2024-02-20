@@ -2,7 +2,6 @@
 using Kurdi.Inventory.Core.Entities;
 using Kurdi.Inventory.Core.Entities.ProductAggregate;
 using Kurdi.Inventory.Core.Entities.CategoryAggregate;
-using Kurdi.Inventory.Core.Entities.SalesOrderAggregate;
 using Kurdi.Inventory.Infrastructure.Configurations.Settings;
 using Microsoft.Extensions.Options;
 using Kurdi.Inventory.Infrastructure.Configurations.Entities.CategoriesAggregate;

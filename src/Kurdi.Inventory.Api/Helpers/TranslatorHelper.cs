@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Kurdi.Inventory.Api.Helpers
 {
@@ -10,7 +5,7 @@ namespace Kurdi.Inventory.Api.Helpers
     {
         public static string Translate(string key)
         {
-            var configuration = new ConfigurationBuilder().AddJsonFile("Resourses/resourses.ar.json").Build();
+            var configuration = new ConfigurationBuilder().AddJsonFile("Resources/resources.ar.json").Build();
             return configuration.GetValue<string>(key) ?? key;
         }
     }

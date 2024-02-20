@@ -1,15 +1,9 @@
 using System.Collections.Generic;
 
-
-namespace Kurdi.Inventory.Core.DTOs.SalesOrders
+namespace Kurdi.Inventory.Core.SalesOrders
 {
-    public class SalesOrderDTO
+    public class SalesOrderDto(List<SalesOrderItemDto> salesOrderItems)
     {
-        public List<SalesOrderItemDTO> SalesOrderItems { get; set; } = new List<SalesOrderItemDTO>();
-
-        public SalesOrderDTO(List<SalesOrderItemDTO> salesOrderItems)
-        {
-            this.SalesOrderItems = salesOrderItems;
-        }
+        public List<SalesOrderItemDto> SalesOrderItems { get; set; } = salesOrderItems;
     }
 }

@@ -1,7 +1,6 @@
-﻿using Kurdi.Inventory.Core;
-using Kurdi.SharedKernel;
+﻿using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Products;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Products.DeleteProduct;
 
-public record DeleteProductCommand(string sku) : ICommand<Result<string>>;
+public record DeleteProductCommand(string Sku) : ICommand<Result<string>>;

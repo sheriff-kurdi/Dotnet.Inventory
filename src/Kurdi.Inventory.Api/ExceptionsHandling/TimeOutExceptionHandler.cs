@@ -4,17 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kurdi.Inventory.Api.ExceptionsHandling;
 
-public class TimeOutExceptionHandler : IExceptionHandler
+public class TimeOutExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly ILogger<DefaultExceptionHandler> _logger;
-    public TimeOutExceptionHandler(ILogger<DefaultExceptionHandler> logger)
-    {
-        _logger = logger;
-    }
-
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        _logger.LogError(exception, "A timeout occurred");
+        logger.LogError(exception, "A timeout occurred");
 
         if (exception is TimeoutException)
         {

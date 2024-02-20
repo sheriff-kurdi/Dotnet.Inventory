@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kurdi.Inventory.Core.Entities.ProductAggregate
@@ -14,10 +13,7 @@ namespace Kurdi.Inventory.Core.Entities.ProductAggregate
                 if (IsDiscounted) { return _sellingPrice - Discount; }
                 else { return _sellingPrice; }
             }
-            set
-            {
-                _sellingPrice = value;
-            }
+            set => _sellingPrice = value;
         }
 
         public double CostPrice { get; set; }

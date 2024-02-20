@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Kurdi.Inventory.Core.Entities.ProductAggregate;
 
-namespace Kurdi.Inventory.Core;
+namespace Kurdi.Inventory.Core.DTOs.ProductsManagement.Products;
 
-public class CreateProductDTO
+public class CreateProductDto
 {
-    public string SKU { get; set; }
+    public string Sku { get; set; }
     public ProductPrices ProductPrices { get; set; }
-    public List<ProductDetails> ProductDetails { get; set; } = new List<ProductDetails>();
+    public List<ProductDetails> ProductDetails { get; set; } = [];
     public string CategoryName { get; set; }
     public bool Activation { get; set; }
 
@@ -16,7 +15,7 @@ public class CreateProductDTO
     {
         return new Product()
         {
-            Sku = SKU,
+            Sku = Sku,
             ProductPrices = ProductPrices,
             CategoryName = CategoryName,
             Activation = Activation

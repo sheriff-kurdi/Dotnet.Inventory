@@ -4,11 +4,5 @@ using Kurdi.Inventory.Core.Contracts.Repositories;
 
 namespace Kurdi.Inventory.Infrastructure.DataAccess
 {
-    public class SalesOrderStatusesRepo : RepoBase<SalesOrderStatus>, ISalesOrderStatusesRepo
-    {
-        public SalesOrderStatusesRepo(AppDbContext db) : base(db)
-        {
-
-        }
-    }
+    public class SalesOrderStatusesRepo(AppDbContext db) : RepoBase<SalesOrderStatus>(db), ISalesOrderStatusesRepo;
 }

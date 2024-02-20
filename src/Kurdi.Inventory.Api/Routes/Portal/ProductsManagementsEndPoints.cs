@@ -1,7 +1,17 @@
 
 
 using Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+using Kurdi.Inventory.UseCases.ProductsManagement.Categories.CreateCategory;
+using Kurdi.Inventory.UseCases.ProductsManagement.Categories.DeleteCategory;
+using Kurdi.Inventory.UseCases.ProductsManagement.Categories.GetCategoryByName;
+using Kurdi.Inventory.UseCases.ProductsManagement.Categories.ListCategories;
+using Kurdi.Inventory.UseCases.ProductsManagement.Categories.UpdateCategory;
 using Kurdi.Inventory.UseCases.ProductsManagement.Products;
+using Kurdi.Inventory.UseCases.ProductsManagement.Products.CreateProduct;
+using Kurdi.Inventory.UseCases.ProductsManagement.Products.DeleteProduct;
+using Kurdi.Inventory.UseCases.ProductsManagement.Products.GetProductBySKU;
+using Kurdi.Inventory.UseCases.ProductsManagement.Products.ListProducts;
+using Kurdi.Inventory.UseCases.ProductsManagement.Products.UpdateProduct;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace Kurdi.Inventory.Api.Routes.Portal
@@ -26,7 +36,7 @@ namespace Kurdi.Inventory.Api.Routes.Portal
 
             productsGroup.MapGet("/{sku}", async (string sku, [FromServices] IMediator mediator) =>
             {
-                var result = await mediator.Send(new GetProductBySKUQuery(sku));
+                var result = await mediator.Send(new GetProductBySkuQuery(sku));
                 if (!result.IsSuccess) return Results.BadRequest(result);
                 return Results.Ok(result);
             });

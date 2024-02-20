@@ -6,56 +6,49 @@ using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.ListCategories;
 
-public class ListCategoriesHandler : IQueryHandler<ListCategoriesQuery, Result<IEnumerable<ListCategoriesItemResponse>>>
+public class ListCategoriesHandler(ICategoriesRepo categoriesRepo, IValidator<ListCategoriesRequest> validator)
+    : IQueryHandler<ListCategoriesQuery, Result<IEnumerable<ListCategoriesItemResponse>>>
 {
-    private readonly ICategoriesRepo _categoriesRepo;
-    private readonly IValidator<ListCategoriesRequest> _validator;
-
-    public ListCategoriesHandler(ICategoriesRepo categoriesRepo, IValidator<ListCategoriesRequest> validator)
-    {
-        _categoriesRepo = categoriesRepo;
-        _validator = validator;
-    }
     public async Task<Result<IEnumerable<ListCategoriesItemResponse>>> Handle(ListCategoriesQuery request, CancellationToken cancellationToken)
     {
-        ValidationResult validationResult = await _validator.ValidateAsync(request.listCategoriesRequest);
+        ValidationResult validationResult = await validator.ValidateAsync(request.ListCategoriesRequest, cancellationToken);
         if (!validationResult.IsValid)
         {
             return Result.Error(validationResult.Errors.Select(err => err.ErrorMessage).ToArray());
         }
 
-        IQueryable<Category> categories = _categoriesRepo.FindAll();
+        IQueryable<Category> categories = categoriesRepo.FindAll();
 
 
         categories = categories
             .Include(s => s.CategoryDetails);
 
 
-        if (request.listCategoriesRequest.Activation)
+        if (request.ListCategoriesRequest.Activation)
         {
-            categories = categories.Where(category => category.Activation == request.listCategoriesRequest.Activation);
+            categories = categories.Where(category => category.Activation == request.ListCategoriesRequest.Activation);
         }
-        if (!string.IsNullOrEmpty(request.listCategoriesRequest.Query))
+        if (!string.IsNullOrEmpty(request.ListCategoriesRequest.Query))
         {
 
             categories = categories.Where(category =>
-                category.Name == request.listCategoriesRequest.Query
-                || category.CategoryDetails.Any(categoryDetails => categoryDetails.CategoryName.Contains(request.listCategoriesRequest.Query))
+                category.Name == request.ListCategoriesRequest.Query
+                || category.CategoryDetails.Any(categoryDetails => categoryDetails.CategoryName.Contains(request.ListCategoriesRequest.Query))
             );
         }
 
         var pagedInfo = new PagedInfo(
-                    request.listCategoriesRequest.PageNumber
-                    , request.listCategoriesRequest.PageSize
-                    , (int)Math.Ceiling(categories.Count() / (double)request.listCategoriesRequest.PageSize)
+                    request.ListCategoriesRequest.PageNumber
+                    , request.ListCategoriesRequest.PageSize
+                    , (int)Math.Ceiling(categories.Count() / (double)request.ListCategoriesRequest.PageSize)
                     , categories.Count());
 
 
         var categoriesResponse = categories
-            .Skip((request.listCategoriesRequest.PageNumber - 1) * request.listCategoriesRequest.PageSize)
-            .Take(request.listCategoriesRequest.PageSize)
+            .Skip((request.ListCategoriesRequest.PageNumber - 1) * request.ListCategoriesRequest.PageSize)
+            .Take(request.ListCategoriesRequest.PageSize)
             .Select(category => new ListCategoriesItemResponse()
             {
                 Name = category.Name,

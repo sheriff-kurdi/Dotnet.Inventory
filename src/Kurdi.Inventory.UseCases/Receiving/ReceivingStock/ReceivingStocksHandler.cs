@@ -1,23 +1,15 @@
-﻿
-using Kurdi.Inventory.Core;
+﻿using Kurdi.Inventory.Core.Contracts.Services;
 using Kurdi.SharedKernel;
 using Kurdi.SharedKernel.Result;
-using MediatR;
 
-namespace Kurdi.Inventory.UseCases.Receiving;
+namespace Kurdi.Inventory.UseCases.Receiving.ReceivingStock;
 
-public class ReceivingStocksHandler : ICommandHandler<ReceivingStocksCommand, Result>
+public class ReceivingStocksHandler(IReceivingService receivingService)
+    : ICommandHandler<ReceivingStocksCommand, Result>
 {
-    private readonly IReceivingService _receivingService;
-
-    public ReceivingStocksHandler(IReceivingService receivingService)
-    {
-        _receivingService = receivingService;
-    }
-
     public async Task<Result> Handle(ReceivingStocksCommand request, CancellationToken cancellationToken)
     {
-        await _receivingService.ReceiveProduct(request.ReceiveProductDTO.sku, request.ReceiveProductDTO.quantity);
+        await receivingService.ReceiveProduct(request.ReceiveProductDto.Sku, request.ReceiveProductDto.Quantity);
         return Result.Success();
     }
 

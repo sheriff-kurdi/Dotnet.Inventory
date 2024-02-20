@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Kurdi.Inventory.UseCases.ProductsManagement.CommonValidators;
 
-namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories;
+namespace Kurdi.Inventory.UseCases.ProductsManagement.Categories.CreateCategory;
 
 public class CreateCategoryValidator : AbstractValidator<CreateCategoryRequest>
 {
